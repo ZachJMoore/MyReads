@@ -20,8 +20,9 @@ class searchPage extends React.Component {
                     if (res && !res.error) {
                         let filtered = res.map((book) =>{
                             if (!book.imageLinks){
-                                console.log(book)
-                                book.imageLinks.thumbnail = "http://via.placeholder.com/128x192"
+                                let newBook = book
+                                newBook.imageLinks = {thumbnail: "http://via.placeholder.com/128x192"}
+                                return newBook
                             }
                             return book
                             

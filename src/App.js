@@ -39,7 +39,6 @@ class BooksApp extends React.Component {
       // books api. Remove item from shelf
       BooksAPI.update(bookToMove, dest)
     };
-
   }
 
   componentDidMount(){
