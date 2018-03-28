@@ -1,13 +1,14 @@
 
 import React from "react"
-import { link } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 class searchPage extends React.Component {
+
     render() {
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <link className="close-search" to="/">Close</link>
+                    <Link className="close-search" to="/">Close</Link>
                     <div className="search-books-input-wrapper">
                     {/*
                         NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -28,5 +29,17 @@ class searchPage extends React.Component {
         )
     }
 }
+
+// constructor(props){
+//     super(props);
+//     this.state = {
+//       searchResults: [],
+//       searchText: ""
+//     };
+//     this.getBooks = (event) => {
+//         this.setState({searchText: event.target.value})
+//         BooksAPI.search(this.state.searchText).then(res => this.setState({searchResults: res}))
+//     }
+//   }
 
 export default searchPage

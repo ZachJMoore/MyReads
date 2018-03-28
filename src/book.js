@@ -1,6 +1,5 @@
 
 import React from "react"
-import * as BooksAPI from './BooksAPI'
 
 class book extends React.Component {
     constructor(props){
@@ -17,7 +16,6 @@ class book extends React.Component {
                     <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` }}></div>
                     <div className="book-shelf-changer">
-                    {/* this.props.moveBook(this.props.book.id, this.state.shelf) */}
                         <select defaultValue={this.state.shelf} onChange={(event) => {
                             this.setState({shelf: event.target.value});
                             this.props.moveBook(this.props.book, event.target.value)

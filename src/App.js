@@ -3,6 +3,8 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchPage from "./searchPage.js"
 import Bookshelf from "./bookshelf.js"
+import { Link } from "react-router-dom"
+import { Route } from "react-router-dom"
 
 let shelves = [
   {title: "Currently Reading",
@@ -18,10 +20,13 @@ let shelves = [
 
 class BooksApp extends React.Component {
   constructor(props){
+
     super(props);
+
     this.state = {
       books: []
-    },
+    };
+
     this.moveBook = (bookToMove, dest) => {
       this.setState(old => {
         return {books: old.books.map(book => {
@@ -33,18 +38,37 @@ class BooksApp extends React.Component {
       })
       // books api. Remove item from shelf
       BooksAPI.update(bookToMove, dest)
-    }
+    };
+
   }
 
   componentDidMount(){
-    BooksAPI.getAll()
-      .then(res => this.setState({books: res}))
+    BooksAPI.getAll().then(res => this.setState({books: res}))
   }
 
   render() {
     return (
       <div className="app">
-        {shelves.map(shelf => <Bookshelf shelf={shelf} key={shelf.id} books={this.state.books} moveBook={this.moveBook}/>)}
+
+        <Route exact path="/" render={()=>{
+          return (<div>
+
+            {shelves.map(shelf => <Bookshelf shelf={shelf} key={shelf.id} books={this.state.books} moveBook={this.moveBook}/>)}
+
+            <div className="open-search">
+            <Link to="/search">Add a book</Link>
+            </div>
+          </div>)
+          
+        }} />
+        
+        <Route path="/search" render={()=>{
+          return (
+            <div>
+            <SearchPage moveBook={this.moveBook}/>
+            </div>
+          )
+        }} />
       </div>
     )
   }
