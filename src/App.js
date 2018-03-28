@@ -27,7 +27,7 @@ class BooksApp extends React.Component {
       books: []
     };
 
-    this.moveBook = (bookToMove, dest) => {
+    this.moveBook = (bookToMove, dest, add = false) => {
       this.setState(old => {
         return {books: old.books.map(book => {
           if (book.id === bookToMove.id) {
