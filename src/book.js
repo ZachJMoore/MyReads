@@ -4,21 +4,29 @@ import React from "react"
 class book extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            shelf: this.props.book.shelf
+        this.state = {}
+        this.verifyThumbnail = (book)=>{
+            if (!book.imageLinks) {
+                let newBook = book
+                newBook.imageLinks = {
+                    thumbnail: "http://via.placeholder.com/128x192"
+                }
+                return newBook.imageLinks.thumbnail
+            } else {
+                return book.imageLinks.thumbnail
+            }
         }
-      }
+      };
 
     render() {
         return (
             <li>
                 <div className="book">
                     <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${this.verifyThumbnail(this.props.book)})` }}></div>
                     <div className="book-shelf-changer">
-                        <select defaultValue={this.state.shelf} onChange={(event) => {
-                            this.setState({shelf: event.target.value});
-                            this.props.moveBook(this.props.book, event.target.value)
+                        <select defaultValue={this.props.book.shelf} onChange={(event) => {
+                            this.props.moveBook(this.props.book, event.target.value);
                         }}>
                         <option value="none" disabled>Move to...</option>
                         <option value="currentlyReading">Currently Reading</option>

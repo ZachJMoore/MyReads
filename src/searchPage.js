@@ -18,16 +18,19 @@ class searchPage extends React.Component {
                 BooksAPI.search(event.target.value).then(res => {
                     console.log(res);
                     if (res && !res.error) {
-                        let filtered = res.map((book) =>{
-                            if (!book.imageLinks){
-                                let newBook = book
-                                newBook.imageLinks = {thumbnail: "http://via.placeholder.com/128x192"}
-                                return newBook
-                            }
+                        let filtered = res.map((book)=>{
+                            book.shelf = "none"
+                            this.props.currentBooks.map((currentBook) => {
+                                if (book.id === currentBook.id){
+                                    book.shelf = currentBook.shelf
+                                }
+                                return book
+                            })
                             return book
-                            
                         })
                         this.setState({searchResults: filtered})
+                    } else {
+                        this.setState({searchResults: []})
                     }
                 })
             } else {

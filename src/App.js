@@ -28,16 +28,11 @@ class BooksApp extends React.Component {
     };
 
     this.moveBook = (bookToMove, dest, add = false) => {
-      this.setState(old => {
-        return {books: old.books.map(book => {
-          if (book.id === bookToMove.id) {
-            book.shelf = dest
-          }
-          return book
-        })}
-      })
+      
       // books api. Remove item from shelf
-      BooksAPI.update(bookToMove, dest)
+      BooksAPI.update(bookToMove, dest).then(()=>{
+        BooksAPI.getAll().then(res => this.setState({books: res}));
+      });
     };
   }
 
@@ -64,7 +59,7 @@ class BooksApp extends React.Component {
         <Route path="/search" render={()=>{
           return (
             <div>
-            <SearchPage moveBook={this.moveBook}/>
+            <SearchPage moveBook={this.moveBook} currentBooks={this.state.books} />
             </div>
           )
         }} />
